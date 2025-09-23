@@ -1,0 +1,15 @@
+# Core dependencies for rose disease classification
+pandas>=1.3.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+lightgbm>=3.0.0
+
+# Optional: For enhanced data processing and visualization
+matplotlib>=3.3.0
+seaborn>=0.11.0
+
+# Optional: For memory optimization and performance
+joblib>=1.0.0
+
+# Optional: For enhanced numerical computing
+scipy>=1.7.0
