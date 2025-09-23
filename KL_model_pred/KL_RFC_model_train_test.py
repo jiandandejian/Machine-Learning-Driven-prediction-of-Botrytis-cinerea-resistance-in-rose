@@ -1,0 +1,122 @@
+import pandas as pd
+import numpy as np
+import itertools
+from itertools import product
+
+# Import custom training and evaluation functions
+from KL_Divergence_model_train_test import (
+    calculate_prob_distributions,
+    calculate_kl_divergence,
+    select_snps_by_percentile,
+    train_and_evaluate
+)
+
+# Import model types from scikit-learn
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from lightgbm import LGBMClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import ParameterGrid
+
+# ======================== Step 1: Compute KL Divergence ========================
+# Load input data and compute smoothed SNP probability distributions
+kl_prob_distributions = calculate_prob_distributions(df1='./nature_GWAS_SNP_RS.tsv', df2='./F1_GWAS_SNP_RS.tsv')
+
+# Compute KL divergence between the two datasets
+kl_snp, kl_res = calculate_kl_divergence(kl_prob_distributions)
+
+# ======================== Step 2: Select SNPs by KL percentile ========================
+# Define thresholds and select top SNPs based on KL divergence
+kl_percentile = [0.125, 0.250, 0.375, 0.500, 0.625, 0.750, 0.875, 1.000]
+kl_select_snps = select_snps_by_percentile(kl_snp, kl_percentile)
+
+# Sort selected SNPs by chromosomal position
+for key in kl_select_snps:
+    kl_select_snps[key] = sorted(
+        kl_select_snps[key], 
+        key=lambda x: (int(x.split('_')[0][3:]), int(x.split('_')[1]))
+    )
+
+# ======================== Step 3: Train and Evaluate Random Forest Classifier ========================
+# Define hyperparameter grid for RandomForestClassifier
+RFC_param_grid = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [5, 10, 15],
+    'max_features': ['sqrt', 'log2'],
+    'min_samples_split': [5, 10],
+    'min_samples_leaf': [2, 4, 6],
+    'bootstrap': [True],
+    'class_weight': ['balanced'],
+    'criterion': ['entropy', 'log_loss'],
+    'random_state': [42]
+}
+
+# Expand hyperparameter combinations using sklearn's ParameterGrid
+RFC_param_grid = list(ParameterGrid(RFC_param_grid))
+
+print(f"Total valid parameter combinations: {len(RFC_param_grid)}")
+
+RFC_results = []
+
+for RFC_idx, parameters in enumerate(RFC_param_grid):
+    print(f"\nEvaluating combination {RFC_idx + 1}/{len(RFC_param_grid)}: {parameters}")
+
+    RFC_result = train_and_evaluate(
+        model_type=RandomForestClassifier,
+        train_data_path='./nature_GWAS_SNP_RS.tsv',
+        test_data_path='./F1_GWAS_SNP_RS.tsv',
+        selected_snps=kl_select_snps,
+        parameters=parameters
+    )
+
+    for RFC_res in RFC_result:
+        RFC_res['RFC_parameters'] = parameters
+        RFC_res['RFC_idx'] = RFC_idx
+
+    RFC_results.append(RFC_result)
+
+# ======================== Step 4: Extract Best Accuracy for Each Threshold ========================
+def obtain_best_RFC_res(RFC_results, percentile, output_file="KL_RFC_model_detailed_results_by_Threshold.txt"):
+    RFC_acc_all = []
+    for i in range(len(RFC_results)):
+        RFC_acc_p = []
+        for j in range(len(percentile)):
+            RFC_acc_p_t = RFC_results[i][j]['accuracy']
+            RFC_acc_p.append(RFC_acc_p_t)
+        RFC_acc_all.append(RFC_acc_p)
+
+    best_RFC_acc_on_different_percentile = np.max(RFC_acc_all, axis=0)
+    best_RFC_acc_on_different_percentile_ids = np.argmax(RFC_acc_all, axis=0)
+
+    # Write results to file
+    with open(output_file, "a") as f:
+        for idx, ids in enumerate(best_RFC_acc_on_different_percentile_ids):
+            # 写最佳准确率基本信息
+            f.write(f"Best Accuracy at KL threshold {percentile[idx]}:\n")
+            f.write(f"  Accuracy: {best_RFC_acc_on_different_percentile[idx]:.5f}\n")
+            f.write(f"  Parameter set ID: {RFC_results[ids][idx]['RFC_idx']}\n")
+            f.write(f"  Parameters: {RFC_results[ids][idx]['RFC_parameters']}\n")
+        
+            # 写详细的模型评估指标
+            model_details = RFC_results[ids][idx]
+            f.write("  Model Evaluation Metrics:\n")
+            f.write(f"    ROC AUC: {model_details['roc_auc']:.5f}\n")
+            f.write(f"    Average Precision: {model_details['average_precision']:.5f}\n")
+            f.write(f"    F1 Score: {model_details['f1_score']:.5f}\n")
+            f.write(f"    SNP Count: {model_details['snp_count']}\n")
+            f.write(f"    Confusion Matrix: {model_details['confusion_matrix']}\n")
+            f.write(f"    Precision List: {model_details['precision']}\n")
+            f.write(f"    Recall List: {model_details['recall']}\n")
+            f.write(f"    FPR List: {model_details['fpr']}\n")
+            f.write(f"    TPR List: {model_details['tpr']}\n")
+            f.write(f"    Thresholds (ROC): {model_details['thresholds_ft']}\n")
+            f.write(f"    Thresholds (PR): {model_details['thresholds_pr']}\n")
+            f.write(f"    y_test: {model_details['y_test']}\n")
+            f.write(f"    y_pred: {model_details['y_pred']}\n")
+            f.write("\n" + "="*80 + "\n\n")  # 分隔线，方便查看每组输出
+
+    return best_RFC_acc_on_different_percentile_ids
+
+# Run evaluation and save output
+acc_RFC_all = obtain_best_RFC_res(RFC_results, kl_percentile)
