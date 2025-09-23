@@ -17,10 +17,7 @@ A Python tool for calculating Single Nucleotide Polymorphism (SNP) importance co
 - **RandomForestClassifier**: Random Forest ensemble method
 - **LogisticRegression**: Linear logistic regression
 - **LGBMClassifier**: Light Gradient Boosting Machine
-- **XGBClassifier**: Extreme Gradient Boosting
-- **DecisionTreeClassifier**: Decision tree algorithm
 - **SVC**: Support Vector Classifier
-- **SGDClassifier**: Stochastic Gradient Descent
 
 ## Installation
 
@@ -183,4 +180,5 @@ For issues and questions:
 1. Check the troubleshooting section
 2. Review example usage
 3. Open an issue on GitHub with detailed error messages and data format
+
 
