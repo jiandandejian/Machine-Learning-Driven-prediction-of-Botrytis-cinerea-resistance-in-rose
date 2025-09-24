@@ -173,14 +173,6 @@ Each model generates a detailed results file containing:
 - Smoothing (1e-9) is applied to probability distributions to handle zero probabilities
 - Binary classification assumes 'R' (resistant) = 0, 'S' (susceptible) = 1
 
-## Citation
-
-If you use this pipeline in your research, please cite the relevant papers for the algorithms and methodologies employed.
-
 ## License
 
-[Add your license information here]
-
-## Contact
-
-[Add contact information here]
+This project is licensed under the MIT License - see the LICENSE file for details.
