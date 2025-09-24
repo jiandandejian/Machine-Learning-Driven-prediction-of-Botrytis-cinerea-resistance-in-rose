@@ -172,3 +172,7 @@ Each model generates a detailed results file containing:
 - SNPs are sorted by chromosomal position after selection
 - Smoothing (1e-9) is applied to probability distributions to handle zero probabilities
 - Binary classification assumes 'R' (resistant) = 0, 'S' (susceptible) = 1
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
