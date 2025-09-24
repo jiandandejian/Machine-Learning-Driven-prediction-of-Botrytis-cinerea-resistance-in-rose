@@ -176,22 +176,6 @@ ROC-AUC: 0.89 ± 0.03
 F1-Score: 0.84 ± 0.02
 ```
 
-## Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
-### Development Guidelines
-- Follow PEP 8 style guidelines
-- Add tests for new features
-- Update documentation as needed
-- Ensure backward compatibility
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
