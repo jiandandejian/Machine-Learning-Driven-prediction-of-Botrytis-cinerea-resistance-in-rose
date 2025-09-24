@@ -178,4 +178,4 @@ F1-Score: 0.84 ± 0.02
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
