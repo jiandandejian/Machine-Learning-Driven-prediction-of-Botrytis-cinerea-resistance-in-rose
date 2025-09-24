@@ -170,15 +170,5 @@ JSONDecodeError: Expecting property name enclosed in double quotes
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Review example usage
-3. Open an issue on GitHub with detailed error messages and data format
 
 
