@@ -179,40 +179,9 @@ The framework evaluates models using:
    - Input data characteristics
    - System specifications
 
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
-
-### Development Setup
-```bash
-# Create virtual environment
-python -m venv gwas_env
-source gwas_env/bin/activate  # On Windows: gwas_env\Scripts\activate
-
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-python -m pytest tests/
-```
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Citation
-
-If you use this framework in your research, please cite:
-
-```bibtex
-@software{gwas_kinship_ml_2025,
-  title={GWAS Kinship-based Machine Learning Framework},
-  author={[Author Names]},
-  year={2025},
-  url={[Repository URL]},
-  version={1.0.0}
-}
-```
 
 ## Related Resources
 
