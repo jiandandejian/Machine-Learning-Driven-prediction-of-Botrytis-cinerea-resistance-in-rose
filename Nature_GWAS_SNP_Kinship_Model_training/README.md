@@ -181,17 +181,9 @@ The framework evaluates models using:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Related Resources
 
-- [GWAS Best Practices](https://www.nature.com/articles/s41586-018-0579-z)
-- [Population Stratification in GWAS](https://www.nature.com/articles/nrg2813)
 - [Scikit-learn Documentation](https://scikit-learn.org/)
 - [LightGBM Documentation](https://lightgbm.readthedocs.io/)
-
----
-
-**Maintained by**: [Your Name/Organization]  
-**Last Updated**: June 2025  
-**Status**: Active Development
