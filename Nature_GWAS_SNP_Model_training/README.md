@@ -176,54 +176,7 @@ ROC-AUC: 0.89 ± 0.03
 F1-Score: 0.84 ± 0.02
 ```
 
-## Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
-### Development Guidelines
-- Follow PEP 8 style guidelines
-- Add tests for new features
-- Update documentation as needed
-- Ensure backward compatibility
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Citation
-
-If you use this code in your research, please cite:
-
-```bibtex
-@software{rose_disease_classification,
-  title={Machine Learning Model Training on GWAS SNP Sites},
-  author={Jian Ruoheng},
-  year={2025},
-  url={XXXXXXX},
-  version={1.0}
-}
-```
-
-## Support
-
-- **Email**: XXXXXXX
-- **Issues**: [GitHub Issues](https://github.com/yourusername/rose-disease-classification/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/rose-disease-classification/discussions)
-
-## Acknowledgments
-
-- Thanks to all contributors who have helped improve this project
-- Special thanks to the rose genetics research community
-- Built with love for open science and reproducible research
-
----
-
-<div align="center">
-Made with care for the plant genetics community
-</div>
