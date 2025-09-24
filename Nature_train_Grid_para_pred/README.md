@@ -187,7 +187,6 @@ To add a new classifier:
 - [LightGBM Parameter Tuning](https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html)
 - [Cross-validation Best Practices](https://scikit-learn.org/stable/modules/cross_validation.html)
 
----
+## License
 
-**Last Updated**: June 2025  
-**Status**: Active Development
+This project is licensed under the MIT License - see the LICENSE file for details.
